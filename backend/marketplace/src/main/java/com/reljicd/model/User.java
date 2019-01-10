@@ -9,12 +9,12 @@ import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
-@Table(name = "user")
+@Table(name = "user_of_system")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "user_id")
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "email", unique = true, nullable = false)
@@ -33,16 +33,12 @@ public class User {
     @NotEmpty(message = "*Please provide your name")
     private String username;
 
-    @Column(name = "name")
+    @Column(name = "fullName")
     @NotEmpty(message = "*Please provide your name")
     private String name;
 
-    @Column(name = "last_name")
-    @NotEmpty(message = "*Please provide your last name")
-    private String lastName;
-
-    @Column(name = "active", nullable = false)
-    private int active;
+//    @Column(name = "active", nullable = false)
+//    private int active;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -80,14 +76,6 @@ public class User {
         this.name = name;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -96,13 +84,13 @@ public class User {
         this.email = email;
     }
 
-    public int getActive() {
-        return active;
-    }
-
-    public void setActive(int active) {
-        this.active = active;
-    }
+//    public int getActive() {
+//        return active;
+//    }
+//
+//    public void setActive(int active) {
+//        this.active = active;
+//    }
 
     public Collection<Role> getRoles() {
         return roles;
