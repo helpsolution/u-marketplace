@@ -11,21 +11,19 @@ VALUES
 INSERT INTO user_of_system (id,  password, email, username, fullName,  phone)
 VALUES (3, '$2a$06$OAPObzhRdRXBCbk7Hj/ot.jY3zPwR8n7/mfLtKIgTzdJa4.6TwsIm', 'name@gmail.com', 'namesurname', 'Name',
         1);
--- 
--- INSERT INTO ROLE (role_id, role)
--- VALUES (1, 'ROLE_ADMIN');
--- INSERT INTO ROLE (role_id, role)
--- VALUES (2, 'ROLE_USER');
---
--- INSERT INTO USER_ROLE (id,  role_id)
--- VALUES (1, 1);
--- INSERT INTO USER_ROLE (id,  role_id)
--- VALUES (1, 2);
--- INSERT INTO USER_ROLE (id,  role_id)
--- VALUES (2, 2);
--- INSERT INTO USER_ROLE (id,  role_id)
--- VALUES (3, 2);
---
+
+INSERT INTO ROLE (role_id, role)
+VALUES (1, 'ROLE_ADMIN');
+INSERT INTO ROLE (role_id, role)
+VALUES (2, 'ROLE_USER');
+
+INSERT INTO USER_ROLE (id,  role_id)
+VALUES (1, 1);
+INSERT INTO USER_ROLE (id,  role_id)
+VALUES (2, 2);
+INSERT INTO USER_ROLE (id,  role_id)
+VALUES (3, 2);
+
 -- INSERT INTO PRODUCT (name, description, quantity, price)
 -- VALUES ('Soap', 'Pears baby soap for Kids', 1, 35.75);
 -- INSERT INTO PRODUCT (name, description, quantity, price)

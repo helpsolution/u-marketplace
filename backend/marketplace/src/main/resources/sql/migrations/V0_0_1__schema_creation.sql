@@ -24,6 +24,17 @@ CREATE TABLE user_of_system (
   email                VARCHAR(254) NOT NULL
 );
 
+CREATE TABLE role (
+  role_id                   BIGSERIAL primary key,
+  role             VARCHAR(50) NOT NULL
+);
+
+
+CREATE TABLE user_role (
+  id                    BIGINT primary key,
+  role_id               BIGINT NOT NULL
+);
+
 CREATE TABLE company (
   id    			   BIGSERIAL primary key,
   createdAt            TIMESTAMP    NOT NULL,
