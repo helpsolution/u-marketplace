@@ -31,22 +31,23 @@ public class Company {
     private Long id;
 
     @Column(name = "companyName", unique = true, nullable = false)
-    @NotEmpty(message = "*Please provide a companyName")
+    @NotEmpty(message = "*Пожалуйста, заполните поле")
+    @Length(max = 13, message = "*Your company name is too long")
     private String companyName;
 
     @Column(name = "inn", nullable = false)
     @Length(max = 12, message = "*Your inn is too long")
-    @NotEmpty(message = "*Please provide your inn")
+    @NotEmpty(message = "*Пожалуйста, заполните поле")
     private String inn;
 
     @Column(name = "ogrn", nullable = false)
     @Length(max = 13, message = "*Your inn is too long")
-    @NotEmpty(message = "*Please provide your inn")
+    @NotEmpty(message = "*Пожалуйста, заполните поле")
     private String ogrn;
 
     @Column(name = "legal_address", nullable = false)
     @Length(max = 200, message = "*Your legal address is too long")
-    @NotEmpty(message = "*Please provide your legal address")
+    @NotEmpty(message = "*Пожалуйста, заполните поле")
     private String legal_address;
 
     @Column(name = "actual_address", nullable = false)
