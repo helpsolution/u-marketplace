@@ -38,7 +38,7 @@ CREATE TABLE user_role (
 CREATE TABLE company (
   id    			   BIGSERIAL primary key,
   createdAt            TIMESTAMP    NOT NULL default current_timestamp,
-  companyName          VARCHAR(100) NOT NULL,
+  companyName          VARCHAR(100) UNIQUE NOT NULL,
   inn                  VARCHAR(12) not null,
   ogrn                 VARCHAR(13) not null,
   legal_address        VARCHAR(200) not null,
