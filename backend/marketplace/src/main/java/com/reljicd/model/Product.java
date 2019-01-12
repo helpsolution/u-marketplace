@@ -22,7 +22,12 @@ public class Product {
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "seller_id")
     @NotEmpty(message = "*Пожалуйста, заполните поле")
-    private User user;
+    private Seller seller;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "product_category")
+    @NotEmpty(message = "*Пожалуйста, заполните поле")
+    private Category category;
 
     @Column(name = "product_name", nullable = false, unique = true)
     @Length(min = 3, message = "*Название должно содержать от 3 символов")
