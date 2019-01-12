@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import lombok.Data;
@@ -30,8 +31,7 @@ public class Customer {
     @NotEmpty(message = "*Пожалуйста, заполните поле")
     private User user;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "address")
+    @Length(max = 200, message = "*Поле слишком длинное")
     @NotEmpty(message = "*Пожалуйста, заполните поле")
     private String address;
 

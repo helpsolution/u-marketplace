@@ -29,6 +29,4 @@ public class Analyst {
     @JoinColumn(name = "user_of_system_id")
     @NotEmpty(message = "*Пожалуйста, заполните поле")
     private User user;
-
-
 }

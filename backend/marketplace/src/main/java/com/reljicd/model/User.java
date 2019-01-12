@@ -20,10 +20,10 @@ public class User {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "email", unique = true, nullable = false)
-    @Email(message = "*Пожалуйста, заполните Email правильно")
-    @NotEmpty(message = "*Пожалуйста, заполните поле email")
-    private String email;
+    @Column(name = "username", nullable = false, unique = true)
+    @Length(min = 5, message = "*Имя пользователя должно содержать минимум 5 символов")
+    @NotEmpty(message = "*Пожалуйста, заполните поле")
+    private String username;
 
     @Column(name = "password", nullable = false)
     @Length(min = 5, message = "*Пароль должен содержать минимум 5 символов")
@@ -31,10 +31,10 @@ public class User {
     @JsonIgnore
     private String password;
 
-    @Column(name = "username", nullable = false, unique = true)
-    @Length(min = 5, message = "*Имя пользователя должно содержать минимум 5 символов")
-    @NotEmpty(message = "*Пожалуйста, заполните поле")
-    private String username;
+    @Column(name = "email", unique = true, nullable = false)
+    @Email(message = "*Пожалуйста, заполните Email правильно")
+    @NotEmpty(message = "*Пожалуйста, заполните поле email")
+    private String email;
 
     @Column(name = "fullName")
     @NotEmpty(message = "*Пожалуйста, заполните поле")

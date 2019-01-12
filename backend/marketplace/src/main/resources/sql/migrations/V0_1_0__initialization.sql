@@ -15,7 +15,11 @@ VALUES (3, '$2a$06$OAPObzhRdRXBCbk7Hj/ot.jY3zPwR8n7/mfLtKIgTzdJa4.6TwsIm', 'name
 INSERT INTO ROLE (role_id, role)
 VALUES (1, 'ROLE_ADMIN');
 INSERT INTO ROLE (role_id, role)
-VALUES (2, 'ROLE_USER');
+VALUES (2, 'ROLE_SELLER');
+INSERT INTO ROLE (role_id, role)
+VALUES (3, 'ROLE_CUSTOMER');
+INSERT INTO ROLE (role_id, role)
+VALUES (4, 'ROLE_ANALYST');
 
 INSERT INTO USER_ROLE (id,  role_id)
 VALUES (1, 1);
