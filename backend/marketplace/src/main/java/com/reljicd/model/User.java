@@ -16,7 +16,7 @@ import java.util.Collection;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
@@ -36,9 +36,13 @@ public class User {
     @NotEmpty(message = "*Пожалуйста, заполните поле email")
     private String email;
 
-    @Column(name = "fullName")
+    @Column(name = "fullname", nullable = false)
     @NotEmpty(message = "*Пожалуйста, заполните поле")
     private String name;
+
+    @Column(name = "phone", nullable = false)
+    @NotEmpty(message = "*Пожалуйста, заполните поле")
+    private String phone;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))

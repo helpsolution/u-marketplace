@@ -18,7 +18,7 @@ CREATE TABLE user_of_system (
   id                   BIGSERIAL primary key,
   createdAt            TIMESTAMP    NOT NULL default current_timestamp,
   username             VARCHAR(50) NOT NULL,
-  fullName             VARCHAR(200) NOT NULL,
+  fullname             VARCHAR(200) NOT NULL,
   password             VARCHAR(200) NOT NULL,
   phone                VARCHAR(20) NOT NULL,
   email                VARCHAR(254) NOT NULL
@@ -31,7 +31,7 @@ CREATE TABLE role (
 
 
 CREATE TABLE user_role (
-  id                    BIGINT primary key,
+  user_id                    BIGINT primary key,
   role_id               BIGINT NOT NULL
 );
 

@@ -18,7 +18,7 @@ public class UserServiceImp implements UserService {
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
 
-    private static final String USER_ROLE = "ROLE_USER";
+    private static final String USER_ROLE = "ROLE_SELLER";
 
     @Autowired
     public UserServiceImp(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
@@ -44,6 +44,6 @@ public class UserServiceImp implements UserService {
 //        user.setActive(1);
         // Set Role to ROLE_USER
         user.setRoles(Collections.singletonList(roleRepository.findByRole(USER_ROLE)));
-        return userRepository.saveAndFlush(user);
+        return userRepository.save(user);
     }
 }
