@@ -11,7 +11,6 @@ import javax.validation.constraints.Min;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "product")
 @Data
 public class Product {
 

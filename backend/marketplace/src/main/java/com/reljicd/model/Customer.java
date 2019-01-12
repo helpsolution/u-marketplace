@@ -17,7 +17,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 import lombok.Data;
 
 @Entity
-@Table(name = "product")
 @Data
 public class Customer {
 

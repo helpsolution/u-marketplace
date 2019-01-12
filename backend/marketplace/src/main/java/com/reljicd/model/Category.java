@@ -16,7 +16,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 import lombok.Data;
 
 @Entity
-@Table(name = "user_of_system")
 @Data
 public class Category {
 

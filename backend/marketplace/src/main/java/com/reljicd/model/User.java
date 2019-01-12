@@ -11,7 +11,6 @@ import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
-@Table(name = "user_of_system")
 @Data
 public class User {
 
