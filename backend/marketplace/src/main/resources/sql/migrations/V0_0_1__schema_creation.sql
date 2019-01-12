@@ -25,7 +25,7 @@ CREATE TABLE user_of_system (
 );
 
 CREATE TABLE role (
-  role_id                   BIGSERIAL primary key,
+  role_id          BIGSERIAL primary key,
   role             VARCHAR(50) NOT NULL
 );
 

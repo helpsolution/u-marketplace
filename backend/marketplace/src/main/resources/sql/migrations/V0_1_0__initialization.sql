@@ -1,16 +1,17 @@
 -- password in plaintext: "password"
-INSERT INTO user_of_system (id,  password, email, username, fullName, phone)
+INSERT INTO user_of_system (password, email, username, fullName, phone)
 VALUES
-  (1, '$2a$06$OAPObzhRdRXBCbk7Hj/ot.jY3zPwR8n7/mfLtKIgTzdJa4.6TwsIm', 'user@mail.com', 'user', 'Name',
-   1);
+  ('$2a$06$OAPObzhRdRXBCbk7Hj/ot.jY3zPwR8n7/mfLtKIgTzdJa4.6TwsIm', 'admin@mail.com', 'admin', 'admin',1);
 -- password in plaintext: "password"
-INSERT INTO user_of_system (id,  password, email, username, fullName,  phone)
+INSERT INTO user_of_system (password, email, username, fullName,  phone)
 VALUES
-  (2, '$2a$06$OAPObzhRdRXBCbk7Hj/ot.jY3zPwR8n7/mfLtKIgTzdJa4.6TwsIm', 'johndoe@gmail.com', 'johndoe', 'John', 1);
+  ('$2a$06$OAPObzhRdRXBCbk7Hj/ot.jY3zPwR8n7/mfLtKIgTzdJa4.6TwsIm', 'seller@gmail.com', 'seller', 'seller', 2);
 -- password in plaintext: "password"
-INSERT INTO user_of_system (id,  password, email, username, fullName,  phone)
-VALUES (3, '$2a$06$OAPObzhRdRXBCbk7Hj/ot.jY3zPwR8n7/mfLtKIgTzdJa4.6TwsIm', 'name@gmail.com', 'namesurname', 'Name',
-        1);
+INSERT INTO user_of_system (password, email, username, fullName,  phone)
+VALUES ('$2a$06$OAPObzhRdRXBCbk7Hj/ot.jY3zPwR8n7/mfLtKIgTzdJa4.6TwsIm', 'customer@gmail.com', 'customer', 'customer',3);
+
+INSERT INTO user_of_system (password, email, username, fullName,  phone)
+VALUES ('$2a$06$OAPObzhRdRXBCbk7Hj/ot.jY3zPwR8n7/mfLtKIgTzdJa4.6TwsIm', 'analyst@gmail.com', 'analyst', 'analyst',4);
 
 INSERT INTO ROLE (role_id, role)
 VALUES (1, 'ROLE_ADMIN');
@@ -26,7 +27,9 @@ VALUES (1, 1);
 INSERT INTO USER_ROLE (user_id,  role_id)
 VALUES (2, 2);
 INSERT INTO USER_ROLE (user_id,  role_id)
-VALUES (3, 2);
+VALUES (3, 3);
+INSERT INTO USER_ROLE (user_id,  role_id)
+VALUES (3, 4);
 
 -- INSERT INTO PRODUCT (name, description, quantity, price)
 -- VALUES ('Soap', 'Pears baby soap for Kids', 1, 35.75);
