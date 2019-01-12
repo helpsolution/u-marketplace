@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,7 +27,29 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public Product addProduct(Product product) {
+        return productRepository.save(product);
+    }
+
+    @Override
+    public void deleteProduct(Product product) {
+        productRepository.delete(product);
+    }
+
+    @Override
+    public List<Product> findAllProductForSeller(String username) {
+        return productRepository.findAllForSeller(username);
+    }
+
+//    @Override
+//    public void updateProduct(Product product) {
+//        productRepository.update();
+//    }
+
+
+    @Override
     public Optional<Product> findById(Long id) {
         return productRepository.findById(id);
     }
+
 }
