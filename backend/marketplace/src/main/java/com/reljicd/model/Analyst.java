@@ -2,21 +2,23 @@ package com.reljicd.model;
 
 import javax.persistence.*;
 
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Analyst {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Long id;
+    @Column(name = "user_of_system_id")
+    private Long userOfSystemId;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "user_of_system_id")
-    @NotEmpty(message = "*Пожалуйста, заполните поле")
-    private User user;
+    @Length(max = 200, message = "Поле не должно быть длиннее 200 символов")
+    private String specialization;
 }

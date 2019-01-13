@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface SellerRepository extends JpaRepository<Seller, Long> {
     Optional<Seller> findById(Long id);
 
-    @Query("select s from Seller s inner join s.user u where u.username = :username")
+    @Query(nativeQuery = true, value = "select s.* from Seller s join user_of_system u on u.id=s.user_of_system_id where u.username = :username")
     Optional<Seller> findByUsername(@Param("username") String username);
 
 }

@@ -16,14 +16,8 @@ import lombok.Data;
 public class Seller {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    @Column(name = "user_of_system_id")
     private Long id;
-
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "user_of_system_id")
-    @NotEmpty(message = "*Пожалуйста, заполните поле")
-    private User user;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "company_id")

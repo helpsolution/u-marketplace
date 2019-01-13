@@ -16,7 +16,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 //    void update(Product product);
 
 
-    @Query("select p from Product p join fetch p.seller s join fetch s.user uos where uos.username = :login")
+    @Query(nativeQuery = true, value = "select p.* from Product p join seller s on p.seller_id=s.user_of_system_id " +
+                                        "join user_of_system uos on uos.id=s.user_of_system_id where uos.username = :login")
     Collection<Product> findAllForSeller(@Param("login") String login);
 
 }

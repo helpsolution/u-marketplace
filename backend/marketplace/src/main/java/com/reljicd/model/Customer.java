@@ -12,14 +12,8 @@ import lombok.Data;
 public class Customer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "user_of_system_id")
     private Long id;
-
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "user_of_system_id")
-    @NotEmpty(message = "*Пожалуйста, заполните поле")
-    private User user;
 
     @Length(max = 200, message = "*Поле слишком длинное")
     @NotEmpty(message = "*Пожалуйста, заполните поле")
