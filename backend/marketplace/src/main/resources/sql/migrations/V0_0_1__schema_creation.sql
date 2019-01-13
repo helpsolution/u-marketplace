@@ -117,6 +117,7 @@ create table analytic_report (
 	  id                  BIGSERIAL primary key,
     createdAt           TIMESTAMP    NOT NULL default current_timestamp,
     analyst_id          BIGINT    references analyst not null,
+    report_name         VARCHAR(200) NOT NULL,
     report              bytea      not null
 );
 
