@@ -13,36 +13,36 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class CustomerCabController {
+public class SellerCabController {
 
     private final ProductService productService;
     private final CategoryService categoryService;
 
     @Autowired
-    public CustomerCabController(ProductService productService, CategoryService categoryService) {
+    public SellerCabController(ProductService productService, CategoryService categoryService) {
         this.productService = productService;
         this.categoryService = categoryService;
     }
 
-    @GetMapping("/customerCab")
-    public ModelAndView CustomerCab() {
-        ModelAndView modelAndView = new ModelAndView("/customerCab");
+    @GetMapping("/sellerCab")
+    public ModelAndView sellerCab() {
+        ModelAndView modelAndView = new ModelAndView("/sellerCab");
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName(); //get logged in username
         modelAndView.addObject("products", productService.findAllProductForSeller(name));
         return modelAndView;
     }
 
-//    @GetMapping("/customerCab/addProduct")
+//    @GetMapping("/sellerCab/addProduct")
 //    public ModelAndView addProduct(@PathVariable("productId") Long productId) {
 //        productService.addProduct();
-//        return CustomerCab();
+//        return sellerCab();
 //    }
 //
-//    @GetMapping("/customerCab/removeProduct/{productId}")
+//    @GetMapping("/sellerCab/removeProduct/{productId}")
 //    public ModelAndView removeProduct(@PathVariable("productId") Long productId) {
 //        productService.findById(productId).ifPresent(shoppingCartService::removeProduct);
-//        return CustomerCab();
+//        return sellerCab();
 //    }
 
 }
