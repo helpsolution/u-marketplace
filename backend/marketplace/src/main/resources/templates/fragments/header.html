@@ -37,7 +37,13 @@
                 </ul>
                 <!-- show registration only if user is not yet authenticated -->
                 <ul class="nav navbar-nav" sec:authorize="!isAuthenticated()">
-                    <li class="active"><a th:href="@{/registration}">Регистрация</a></li>
+                    <li class="active"><a th:href="@{/registration-analyst}">Регистрация (аналитик)</a></li>
+                </ul>
+                <ul class="nav navbar-nav" sec:authorize="!isAuthenticated()">
+                    <li class="active"><a th:href="@{/registration-customer}">Регистрация (покупатель)</a></li>
+                </ul>
+                <ul class="nav navbar-nav" sec:authorize="!isAuthenticated()">
+                    <li class="active"><a th:href="@{/registration-seller}">Регистрация (продавец)</a></li>
                 </ul>
                 <!-- show login only if user is not yet authenticated -->
                 <ul class="nav navbar-nav" sec:authorize="!isAuthenticated()">
