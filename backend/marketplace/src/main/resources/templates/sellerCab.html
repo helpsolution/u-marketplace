@@ -20,75 +20,21 @@
     <div class="panel-default well" th:each="product : ${products}">
         <div class="panel-heading">
             <h1><a th:text="${product.name}" th:href="@{'/product/' + ${product.id}}">Наименование</a></h1>
-            <h3 th:text="${product.description}">Описание</h3>
+
+            <div th:inline="text">Цена: [[${product.price}]] P</div>
+            <div th:inline="text">В наличии: [[${product.quantity}]]</div>
+            <!--<h3 th:text="Цена: " th:text="${product.price}">Цена</h3>-->
+            <!--<h3 th:text="Количество: " th:text="${product.quantity}">Количество</h3>-->
         </div>
         <div class="row panel-body">
-            <a th:href="@{'/customerCab/removeProduct/{id}'(id=${product.id})}" class="col-md-1">
-                <button type="button" class="btn btn-primary" th:text="Remove">Удалить</button>
+            <a th:href="@{'/sellerCab/removeProduct/{id}'(id=${product.id})}" class="col-md-1">
+                <button type="button" class="btn btn-primary" th:text="Удалить">Удалить</button>
             </a>
         </div>
     </div>
 
 
 </div>
-
-<!--<div class="row" style="margin-top:20px">-->
-    <!--<div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">-->
-        <!--<form autocomplete="off" action="#" th:action="@{/customerCab/addProduct}"-->
-              <!--th:object="${product}" method="post" role="form">-->
-
-            <!--<div class="form-group">-->
-                <!--<label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"-->
-                       <!--class="alert alert-danger"></label>-->
-                <!--<input type="text" th:field="*{name}" placeholder="Название товара"-->
-                       <!--class="form-control input-lg"/>-->
-            <!--</div>-->
-
-            <!--<div class="form-group">-->
-                <!--<label th:if="${#fields.hasErrors('price')}" th:errors="*{price}"-->
-                       <!--class="alert alert-danger"></label>-->
-                <!--<input type="text" th:field="*{price}" placeholder="Цена"-->
-                       <!--class="form-control input-lg"/>-->
-            <!--</div>-->
-
-            <!--<div class="form-group">-->
-                <!--<label th:if="${#fields.hasErrors('description')}" th:errors="*{description}"-->
-                       <!--class="alert alert-danger"></label>-->
-                <!--<input type="password" th:field="*{description}" placeholder="Описание"-->
-                       <!--class="form-control input-lg"/>-->
-            <!--</div>-->
-
-            <!--<div class="form-group">-->
-                <!--<label th:if="${#fields.hasErrors('color')}" th:errors="*{color}"-->
-                       <!--class="alert alert-danger"></label>-->
-                <!--<input type="text" th:field="*{color}" placeholder="Цвет"-->
-                       <!--class="form-control input-lg"/>-->
-            <!--</div>-->
-
-            <!--<div class="form-group">-->
-                <!--<label th:if="${#fields.hasErrors('size')}" th:errors="*{size}"-->
-                       <!--class="alert alert-danger"></label>-->
-                <!--<input type="text" th:field="*{size}" placeholder="Размер"-->
-                       <!--class="form-control input-lg"/>-->
-            <!--</div>-->
-
-
-            <!--<div class="form-group">-->
-                <!--<label th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"-->
-                       <!--class="alert alert-danger"></label>-->
-                <!--<input type="text" th:field="*{quantity}" placeholder="Количество"-->
-                       <!--class="form-control input-lg"/>-->
-            <!--</div>-->
-
-            <!--<div class="row">-->
-                <!--<div class="col-sm-3" style="float: none; margin: 0 auto;">-->
-                    <!--<input type="submit" class="btn btn-primary btn-block" value="Добавить"/>-->
-                <!--</div>-->
-            <!--</div>-->
-
-        <!--</form>-->
-    <!--</div>-->
-<!--</div>-->
 
 <div th:replace="/fragments/footer :: footer"/>
 

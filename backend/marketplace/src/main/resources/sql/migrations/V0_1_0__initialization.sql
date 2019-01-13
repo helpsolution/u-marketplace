@@ -59,5 +59,10 @@ VALUES (4, 4);
 -- INSERT INTO PRODUCT (name, description, quantity, price)
 -- VALUES ('Camera', 'Imported Canon camera from USA', 10, 85000.00);
 INSERT INTO category (id,name) VALUES (1,'Личные вещи');
+INSERT INTO category (id,name,parent_category_id) VALUES (2,'Куртки',1);
+INSERT INTO category (id,name,parent_category_id) VALUES (3,'Футболки',1);
+INSERT INTO category (id,name,parent_category_id) VALUES (4,'Рубашки',1);
+INSERT INTO category (id,name,parent_category_id) VALUES (5,'Авто',1);
+INSERT INTO category (id,name,parent_category_id) VALUES (6,'Телефоны',1);
 
-INSERT INTO product (seller_id,product_name,product_category,price,description,product_color,product_size,product_count) VALUES (2,'Часы CASIO',1,1000,'s','бц','бр',100);
+INSERT INTO product (seller_id,product_name,product_category,price,description,product_color,product_size,product_count) VALUES (2,'Часы CASIO',1,1000,'Великолепные часы','бц','бр',100);

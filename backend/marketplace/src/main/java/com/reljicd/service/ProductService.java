@@ -1,5 +1,6 @@
 package com.reljicd.service;
 
+import com.reljicd.dto.ProductDto;
 import com.reljicd.model.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,7 +14,7 @@ public interface ProductService {
 
     Page<Product> findAllProductsPageable(Pageable pageable);
 
-    Product addProduct(Product product);
+    Product addProduct(ProductDto productDto);
 
     void deleteProduct(Product product);
 

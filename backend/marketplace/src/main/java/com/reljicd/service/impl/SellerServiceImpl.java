@@ -21,12 +21,12 @@ public class SellerServiceImpl implements SellerService {
 
 
     @Override
-    public Optional<Seller> findById(Long id) {
+    public Seller findById(Long id) {
         return sellerRepository.findById(id);
     }
 
     @Override
-    public Optional<Seller> findByUsername(String name) {
+    public Seller findByUsername(String name) {
         return sellerRepository.findByUsername(name);
     }
 }

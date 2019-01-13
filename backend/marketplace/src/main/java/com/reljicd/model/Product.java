@@ -8,6 +8,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 @Entity
@@ -15,18 +16,18 @@ import java.math.BigDecimal;
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "seller_id")
-    @NotEmpty(message = "*Пожалуйста, заполните поле")
+//    @NotEmpty(message = "*Пожалуйста, заполните поле")
     private Seller seller;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "product_category")
-    @NotEmpty(message = "*Пожалуйста, заполните поле")
+//    @NotEmpty(message = "*Пожалуйста, заполните поле")
     private Category category;
 
     @Column(name = "product_name", nullable = false, unique = true)
@@ -37,9 +38,9 @@ public class Product {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "price", nullable = false)
+    @Column(name = "price", nullable = false,precision=10, scale=2)
     @DecimalMin(value = "0.00", message = "*Price has to be non negative number")
-    @NotEmpty(message = "*Пожалуйста, заполните поле")
+    @NotNull
     private BigDecimal price;
 
     @Column(name = "product_color", nullable = false)
@@ -52,7 +53,7 @@ public class Product {
 
     @Column(name = "product_count", nullable = false)
     @Min(value = 0, message = "*Количество должно быть неотрицательным")
-    @NotEmpty(message = "*Пожалуйста, заполните поле")
+    @NotNull
     private Integer quantity;
 
     @Override
@@ -68,5 +69,20 @@ public class Product {
     @Override
     public int hashCode() {
         return id.hashCode();
+    }
+
+    public Product(Seller seller, Category category, String name, String description, BigDecimal price, String color, String size, Integer quantity) {
+        this.seller = seller;
+        this.category = category;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.color = color;
+        this.size = size;
+        this.quantity = quantity;
+    }
+
+    public Product() {
+
     }
 }

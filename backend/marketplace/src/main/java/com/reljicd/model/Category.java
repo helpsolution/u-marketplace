@@ -11,12 +11,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import lombok.Data;
 
 @Entity
 @Data
+@AllArgsConstructor
 public class Category {
 
     @Id
@@ -32,4 +34,12 @@ public class Category {
     @JoinColumn(name = "parent_category_id")
     private Category parentCategory;
 
+    public Category(String name, Category parentCategory) {
+        this.name = name;
+        this.parentCategory = parentCategory;
+    }
+
+    public Category() {
+
+    }
 }
