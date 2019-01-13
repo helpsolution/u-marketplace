@@ -1,7 +1,5 @@
 package com.reljicd.dto;
 
-import lombok.Data;
-
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,8 +10,10 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.Data;
+
 @Data
-public class SellerDTO {
+public class CustomerDTO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,5 +39,6 @@ public class SellerDTO {
     private String phone;
 
     @Length(max = 200, message = "Поле не должно быть длиннее 200 символов")
-    private String specialization;
+    @NotEmpty(message = "*Пожалуйста, заполните поле")
+    private String address;
 }

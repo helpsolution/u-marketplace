@@ -1,10 +1,13 @@
 package com.reljicd.service.impl;
 
 import com.reljicd.dto.AnalystDTO;
+import com.reljicd.dto.CustomerDTO;
 import com.reljicd.dto.SellerDTO;
 import com.reljicd.model.Analyst;
+import com.reljicd.model.Customer;
 import com.reljicd.model.User;
 import com.reljicd.repository.AnalystRepository;
+import com.reljicd.repository.CustomerRepository;
 import com.reljicd.repository.RoleRepository;
 import com.reljicd.repository.UserRepository;
 import com.reljicd.service.UserService;
@@ -22,6 +25,7 @@ public class UserServiceImp implements UserService {
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
     private final AnalystRepository analystRepository;
+    private final CustomerRepository customerRepository;
 
     private static final String ROLE_SELLER = "ROLE_SELLER";
 
@@ -29,11 +33,13 @@ public class UserServiceImp implements UserService {
     public UserServiceImp(UserRepository userRepository,
                           RoleRepository roleRepository,
                           PasswordEncoder passwordEncoder,
-                          AnalystRepository analystRepository) {
+                          AnalystRepository analystRepository,
+                          CustomerRepository customerRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
         this.analystRepository = analystRepository;
+        this.customerRepository = customerRepository;
     }
 
     @Override
@@ -82,6 +88,22 @@ public class UserServiceImp implements UserService {
         User savedUser = userRepository.save(user);
         Analyst analyst = new Analyst(savedUser.getId(), analystDTO.getSpecialization());
         analystRepository.save(analyst);
+        return savedUser;
+    }
+
+    @Override
+    public User saveCustomer(CustomerDTO customerDTO) {
+
+        String encodedPassword = passwordEncoder.encode(customerDTO.getPassword());
+        User user = new User(
+         null, customerDTO.getUsername(),
+         encodedPassword, customerDTO.getEmail(), customerDTO.getName(),
+         customerDTO.getPhone(),
+         Collections.singletonList(roleRepository.findByRole(ROLE_SELLER))
+        );
+        User savedUser = userRepository.save(user);
+        Customer customer = new Customer(savedUser.getId(), customerDTO.getAddress());
+        customerRepository.save(customer);
         return savedUser;
     }
 }

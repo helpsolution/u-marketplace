@@ -1,6 +1,7 @@
 package com.reljicd.service;
 
 import com.reljicd.dto.AnalystDTO;
+import com.reljicd.dto.CustomerDTO;
 import com.reljicd.dto.SellerDTO;
 import com.reljicd.model.User;
 
@@ -18,4 +19,5 @@ public interface UserService {
 
     User saveAnalyst(AnalystDTO analystDTO);
 
+    User saveCustomer(CustomerDTO customerDTO);
 }
