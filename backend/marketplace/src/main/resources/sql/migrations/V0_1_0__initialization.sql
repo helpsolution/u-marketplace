@@ -25,9 +25,9 @@ VALUES (4, 'ROLE_ANALYST');
 INSERT INTO company (companyName, inn, ogrn, legal_address, actual_address)
 VALUES ('ООО Грибы', '6449013711', '1026402000657', 'Россия, г. Ростов-на-Дону, Пер. Ветреный 43', 'Россия, г. Ростов-на-Дону, Пер. Ветреный 43');
 
-INSERT INTO SELLER(user_of_system_id, company_id) values (3, 1);
-INSERT INTO CUSTOMER(user_of_system_id, address) values (3, 'Улица Пушкинская, д.2');
-INSERT INTO ANALYST(user_of_system_id) values (4);
+INSERT INTO SELLER(id,user_of_system_id, company_id) values (2,2, 1);
+INSERT INTO CUSTOMER(id,user_of_system_id, address) values (3,3, 'Улица Пушкинская, д.2');
+INSERT INTO ANALYST(id,user_of_system_id) values (4,4);
 
 INSERT INTO USER_ROLE (user_id,  role_id)
 VALUES (1, 1);
@@ -58,3 +58,6 @@ VALUES (4, 4);
 -- VALUES ('Leather Wallets', 'Imported Leather Wallets from AUS', 1000, 500.00);
 -- INSERT INTO PRODUCT (name, description, quantity, price)
 -- VALUES ('Camera', 'Imported Canon camera from USA', 10, 85000.00);
+INSERT INTO category (id,name) VALUES (1,'Личные вещи');
+
+INSERT INTO product (seller_id,product_name,product_category,price,description,product_color,product_size,product_count) VALUES (2,'Часы CASIO',1,1000,'s','бц','бр',100);

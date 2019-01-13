@@ -46,19 +46,22 @@ CREATE TABLE company (
 ) ;
 
 CREATE TABLE seller (
-  user_of_system_id    BIGINT primary KEY references user_of_system,
+ id    			   BIGSERIAL primary key,
+  user_of_system_id    BIGINT references user_of_system,
   company_id           BIGINT    not null references company,
   createdAt            TIMESTAMP    NOT NULL default current_timestamp
 ) ;
 
 CREATE TABLE customer (
-  user_of_system_id    BIGINT primary KEY references user_of_system,
+ id    			   BIGSERIAL primary key,
+  user_of_system_id    BIGINT  references user_of_system,
   createdAt            TIMESTAMP    NOT NULL default current_timestamp,
   address              VARCHAR(200) not null
 );
 
 CREATE TABLE analyst (
-  user_of_system_id    BIGINT primary KEY references user_of_system,
+ id    			   BIGSERIAL primary key,
+  user_of_system_id    BIGINT references user_of_system,
   createdAt            TIMESTAMP    NOT NULL default current_timestamp
 );
 

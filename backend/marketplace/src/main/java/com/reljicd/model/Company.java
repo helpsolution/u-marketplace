@@ -29,7 +29,7 @@ public class Company {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "companyName", unique = true, nullable = false)
+    @Column(name = "companyname", unique = true, nullable = false)
     @NotEmpty(message = "*Пожалуйста, заполните поле")
     @Length(max = 13, message = "*Your company name is too long")
     private String companyName;
