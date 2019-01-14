@@ -49,7 +49,11 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void deleteProduct(Product product) {
-        productRepository.delete(product);
+        if (productRepository.findQuantity(product.getId())>1){
+            productRepository.updateQuantity(product.getId());
+        }else{
+            productRepository.delete(product);
+        }
     }
 
     @Override
