@@ -1,7 +1,9 @@
 package com.reljicd.controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,16 +25,23 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.reljicd.model.Analyst;
+import com.reljicd.model.AnalyticReport;
+import com.reljicd.repository.AnalystRepository;
+import com.reljicd.repository.AnalyticReportRepository;
+
 @Controller
 public class FileUploadController {
 
-//    private final StorageService storageService;
-//
-//    @Autowired
-//    public FileUploadController(StorageService storageService) {
-//        this.storageService = storageService;
-//    }
+    private final AnalyticReportRepository analyticReportRepository;
 
+    private final AnalystRepository analystRepository;
+
+    @Autowired
+    public FileUploadController(AnalyticReportRepository analyticReportRepository, AnalystRepository analystRepository) {
+        this.analyticReportRepository = analyticReportRepository;
+        this.analystRepository = analystRepository;
+    }
 
     @GetMapping("/analytic-reports")
     public ModelAndView listUploadedFiles() throws IOException {
@@ -66,9 +75,16 @@ public class FileUploadController {
 
     @PostMapping("/")
     public String handleFileUpload(@RequestParam("file") MultipartFile file,
-            RedirectAttributes redirectAttributes) {
+            RedirectAttributes redirectAttributes) throws Exception {
 
-//        storageService.store(file);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
+        Analyst  analyst = analystRepository.findByUsername(name);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+        String reportName = name + "___" + sdf.format(new Date());
+        AnalyticReport report = new AnalyticReport(null, analyst, reportName, file.getBytes());
+        analyticReportRepository.save(report);
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
 
