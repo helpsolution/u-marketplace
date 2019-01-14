@@ -6,4 +6,6 @@ import com.reljicd.model.Analyst;
 import com.reljicd.model.Customer;
 
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
+
+    Customer findById(Long id);
 }

@@ -28,7 +28,7 @@ public class Basket {
     private Boolean active;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "customer")
+    @JoinColumn(name = "customerId")
     private Customer customer;
 
 }
