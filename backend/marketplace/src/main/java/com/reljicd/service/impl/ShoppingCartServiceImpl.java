@@ -103,7 +103,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
      * Checkout will rollback if there is not enough of some product in stock
      */
     @Override
-    public void checkout(String customerName, String address, String paymentType) {
+    public void checkout(String customerName, String address, String paymentType, Date dateFrom, Date dateTo) {
 
         //size must be equal 1
         Collection<Basket> allActiveBaskets = basketRepository.findAllActiveBaskets(customerName);
@@ -138,6 +138,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         orderOfSystem.setDeliveryAddress(address);
         OrderOfSystem.PayingType payingType = getPayingType(paymentType);
         orderOfSystem.setPayingType(getPayingType(paymentType));
+        orderOfSystem.setDeliveryTimeFrom(dateFrom);
+        orderOfSystem.setDeliveryTimeTo(dateTo);
 
         if (payingType != OrderOfSystem.PayingType.CASH) {
             orderOfSystem.setPayingTime(new Date());

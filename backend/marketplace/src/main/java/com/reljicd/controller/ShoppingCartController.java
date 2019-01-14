@@ -1,7 +1,6 @@
 package com.reljicd.controller;
 
 import com.reljicd.dto.OrderDTO;
-import com.reljicd.dto.PayingDTO;
 import com.reljicd.service.ProductService;
 import com.reljicd.service.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +61,6 @@ public class ShoppingCartController {
 //    }
 
 
-
 //    @GetMapping("/shoppingCart/checkout")
 //    public ModelAndView checkout() {
 //        ModelAndView modelAndView = new ModelAndView();
@@ -75,7 +73,7 @@ public class ShoppingCartController {
 //    }
 
     @RequestMapping(value = "/shoppingCart/checkout", method = RequestMethod.POST)
-    public ModelAndView checkout( OrderDTO orderDTO, BindingResult bindingResult) {
+    public ModelAndView checkout(OrderDTO orderDTO, BindingResult bindingResult) {
 
         ModelAndView modelAndView = shoppingCart();
 
@@ -84,7 +82,7 @@ public class ShoppingCartController {
         } else {
             String name = SecurityContextHolder.getContext().getAuthentication().getName();
 
-            shoppingCartService.checkout(name, orderDTO.getAddress(), orderDTO.getPayingType());
+            shoppingCartService.checkout(name, orderDTO.getAddress(), orderDTO.getPayingType(), orderDTO.getDateFrom(), orderDTO.getDateTo());
 
             modelAndView.addObject("successMessage", "Заявка оформлена успешно");
             modelAndView.addObject("orderDTO", new OrderDTO());
