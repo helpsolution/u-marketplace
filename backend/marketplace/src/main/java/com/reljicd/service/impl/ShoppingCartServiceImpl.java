@@ -43,9 +43,6 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     private BasketRepository basketRepository;
 
     @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
     private CustomerRepository customerRepository;
 
     @Autowired
@@ -110,13 +107,22 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
      */
     @Override
     public void removeProduct(Product product) {
-        if (products.containsKey(product)) {
-            if (products.get(product) > 1)
-                products.replace(product, products.get(product) - 1);
-            else if (products.get(product) == 1) {
-                products.remove(product);
+        Basket basket = basketRepository.findOneActiveBasket(SecurityContextHolder.getContext().getAuthentication().getName());
+        if (basket == null) {
+            throw new RuntimeException("Basket can't be null");
+        }
+        Collection<ProductInBasket> productInBaskets = productInBasketRepository.findProductInBasketByBasketId(basket.getId());
+        for (ProductInBasket productInBasket: productInBaskets) {
+            if (productInBasket.getProductId().equals(product.getId())) {
+                if (productInBasket.getProductCount() - 1 > 0) {
+                    productInBasket.setProductCount(productInBasket.getProductCount() - 1);
+                    productInBasketRepository.save(productInBasket);
+                } else {
+                    productInBasketRepository.delete(productInBasket);
+                }
             }
         }
+
     }
 
     /**
@@ -181,21 +187,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             orderOfSystem.setPayingTime(new Date());
         }
 
-
         orderOfSystemRepository.save(orderOfSystem);
-
-//        Product product;
-//        for (Map.Entry<Product, Integer> entry : products.entrySet()) {
-//            // Refresh quantity for every product before checking
-//            product = productRepository.findOne(entry.getKey().getId());
-//            if (product.getQuantity() < entry.getValue())
-//                throw new NotEnoughProductsInStockException(product);
-//            entry.getKey().setQuantity(product.getQuantity() - entry.getValue());
-//        }
-//        productRepository.save(products.keySet());
-//        productRepository.flush();
-//        products.clear();
-
     }
 
     private OrderOfSystem.PayingType getPayingType(String rawPayingType) {
@@ -214,7 +206,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public BigDecimal getTotal() {
-        return products.entrySet().stream()
+        return getProductsInCart().entrySet().stream()
                 .map(entry -> entry.getKey().getPrice().multiply(BigDecimal.valueOf(entry.getValue())))
                 .reduce(BigDecimal::add)
                 .orElse(BigDecimal.ZERO);
