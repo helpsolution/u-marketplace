@@ -5,6 +5,7 @@ import lombok.Data;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,4 +28,12 @@ public class OrderDTO {
 
     @NotEmpty(message = "*Пожалуйста, заполните поле")
     private String payingType;
+
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @NotEmpty(message = "*Пожалуйста, заполните поле")
+    private Date dateFrom;
+
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @NotEmpty(message = "*Пожалуйста, заполните поле")
+    private Date dateTo;
 }
