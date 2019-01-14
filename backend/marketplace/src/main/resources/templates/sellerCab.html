@@ -16,6 +16,7 @@
         Личный кабинет продавца: <span sec:authentication="name"></span>
     </h1>
 
+    <div class="alert alert-info" th:if="${successMessage}" th:utext="${successMessage}"></div>
 
     <div class="panel-default well" th:each="product : ${products}">
         <div class="panel-heading">
