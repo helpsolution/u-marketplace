@@ -14,7 +14,7 @@ public interface ShoppingCartService {
 
     Map<Product, Integer> getProductsInCart();
 
-    void checkout() throws NotEnoughProductsInStockException;
+    void checkout(String customerName, String address, String paymentType);
 
     BigDecimal getTotal();
 }
