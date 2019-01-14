@@ -72,31 +72,20 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
         Collection<ProductInBasket> productInBasketCollection = productInBasketRepository.findProductInBasketByBasketId(basket.getId());
 
-        if (productInBasketCollection.size() != 0) {
-            Optional<ProductInBasket> productExists = productInBasketCollection.stream().filter(productInBasket -> productInBasket.getProductId().equals(product.getId())).findFirst();
-            if (productExists.isPresent()) {
-                productExists.get().setProductCount(productExists.get().getProductCount() + 1);
-            } else {
-                ProductInBasket productInBasket = new ProductInBasket();
-                productInBasket.setProductId(product.getId());
-                productInBasket.setBasketId(basket.getId());
-                productInBasket.setPriceAtNow(product.getPrice());
-                productInBasket.setProductCount(1L);
-                productInBasketCollection.add(productInBasket);
-                productInBasketRepository.save(productInBasket);
-            }
+
+        Optional<ProductInBasket> productExists = productInBasketCollection.stream().filter(productInBasket -> productInBasket.getProductId().equals(product.getId())).findFirst();
+        if (productExists.isPresent()) {
+            productExists.get().setProductCount(productExists.get().getProductCount() + 1);
         } else {
             ProductInBasket productInBasket = new ProductInBasket();
-            ProductInBasketPK productInBasketPK = new ProductInBasketPK();
-            productInBasketPK.setBasketId(basket.getId());
-            productInBasketPK.setProductId(product.getId());
+            productInBasket.setProductId(product.getId());
+            productInBasket.setBasketId(basket.getId());
             productInBasket.setPriceAtNow(product.getPrice());
             productInBasket.setProductCount(1L);
-            productInBasket.setBasketId(basket.getId());
-            productInBasket.setProductId(product.getId());
             productInBasketCollection.add(productInBasket);
             productInBasketRepository.save(productInBasket);
         }
+
     }
 
     /**
@@ -112,7 +101,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             throw new RuntimeException("Basket can't be null");
         }
         Collection<ProductInBasket> productInBaskets = productInBasketRepository.findProductInBasketByBasketId(basket.getId());
-        for (ProductInBasket productInBasket: productInBaskets) {
+        for (ProductInBasket productInBasket : productInBaskets) {
             if (productInBasket.getProductId().equals(product.getId())) {
                 if (productInBasket.getProductCount() - 1 > 0) {
                     productInBasket.setProductCount(productInBasket.getProductCount() - 1);
@@ -136,7 +125,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         }
         Collection<ProductInBasket> productInBaskets = productInBasketRepository.findProductInBasketByBasketId(basket.getId());
         Map<Product, Integer> result = new HashMap<>();
-        for (ProductInBasket productInBasket: productInBaskets) {
+        for (ProductInBasket productInBasket : productInBaskets) {
             result.put(productRepository.findById(productInBasket.getProductId()).get(), productInBasket.getProductCount().intValue());
         }
         return result;
