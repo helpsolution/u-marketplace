@@ -9,10 +9,11 @@ import org.springframework.data.repository.query.Param;
 import java.util.Collection;
 import java.util.List;
 
-
 public interface ProductInBasketRepository extends JpaRepository<ProductInBasket, Long> {
 
     List<ProductInBasket> findAll();
 
     Collection<ProductInBasket> findProductInBasketByBasketId(@Param("id") Long id);
+
+    ProductInBasket save(ProductInBasket productInBasket);
 }
