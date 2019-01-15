@@ -13,49 +13,26 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Collection;
 import java.util.Optional;
 
+/**
+ * @author Anna Guminskaya
+ * @since 15/01/2019.
+ */
 @Controller
-public class HomeController {
+public class ProductListController {
 
     private static final int INITIAL_PAGE = 0;
 
-    private final ProductService productService;
-
-    private final UserService userService;
-
     @Autowired
-    public HomeController(ProductService productService,
-                          UserService userService) {
-        this.productService = productService;
-        this.userService = userService;
-    }
+    private ProductService productService;
 
-    @GetMapping("*")
-    public Object home(@RequestParam("page") Optional<Integer> page) {
-
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String name = auth.getName(); //get logged in username
-        if(!page.isPresent() && name != null) {
-            Optional<User> user = userService.findByUsername(name);
-            Collection<Role> roles = user.get().getRoles();
-            Role mainRole = roles.iterator().next();
-            if (mainRole.getRole().equals("ROLE_ANALYST")) {
-                return "redirect:/analytic-reports";
-            }
-            if(mainRole.getRole().equals("ROLE_CUSTOMER")) {
-                return "redirect:/product-list";
-            }
-            if(mainRole.getRole().equals("ROLE_SELLER")) {
-                return "redirect:/sellerCab";
-            }
-        }
-
+    @GetMapping("/product-list")
+    public ModelAndView productList(@RequestParam("page") Optional<Integer> page) {
 
         // Evaluate page. If requested parameter is null or less than 0 (to
         // prevent exception), return initial size. Otherwise, return value of
@@ -66,9 +43,9 @@ public class HomeController {
         Pager pager = new Pager(products);
 
         ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("/product-list");
         modelAndView.addObject("products", products);
         modelAndView.addObject("pager", pager);
-        modelAndView.setViewName("/home");
         return modelAndView;
     }
 

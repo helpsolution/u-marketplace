@@ -16,6 +16,12 @@
         Личный кабинет продавца: <span sec:authentication="name"></span>
     </h1>
 
+    <form class="jumbotron" >
+        <a href="/sellerCabAdd" class="col-md-1">
+        <button type="button" class="btn btn-primary" text="Добавить товар">Добавить товар</button>
+        </a>
+    </form>
+
     <div class="alert alert-info" th:if="${successMessage}" th:utext="${successMessage}"></div>
 
     <div class="panel-default well" th:each="product : ${products}">

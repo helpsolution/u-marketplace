@@ -32,9 +32,6 @@
             </div>
             <div id="navbar" class="collapse navbar-collapse navbar-right">
                 <!-- show shoppingCart only if user is not yet authenticated -->
-                <ul class="nav navbar-nav" sec:authorize="isAuthenticated()">
-                    <li class="active"><a th:href="@{/shoppingCart}">Корзина</a></li>
-                </ul>
                 <!-- show registration only if user is not yet authenticated -->
                 <ul class="nav navbar-nav" sec:authorize="!isAuthenticated()">
                     <li class="active"><a th:href="@{/registration-analyst}">Регистрация (аналитик)</a></li>
