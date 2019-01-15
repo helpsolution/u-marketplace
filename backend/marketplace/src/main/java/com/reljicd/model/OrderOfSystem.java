@@ -4,6 +4,9 @@ import lombok.Data;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -38,6 +41,11 @@ public class OrderOfSystem {
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "basket_id")
     private Basket basket;
+
+    @Column(name = "order_price", nullable = false,precision=10, scale=2)
+    @DecimalMin(value = "0.00", message = "*Price has to be non negative number")
+    @NotNull
+    private BigDecimal price;
 
     @Column(name = "delivery_address")
     private String deliveryAddress;

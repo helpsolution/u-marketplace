@@ -61,10 +61,15 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findAllForSeller(username);
     }
 
-//    @Override
-//    public void updateProduct(Product product) {
-//        productRepository.update();
-//    }
+
+
+    @Override
+    public void updateProduct(ProductDto productDto) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String uname = auth.getName(); //get logged in username
+        Product product = new Product(sellerRepository.findByUsername(uname), categoryRepository.findById(Long.parseLong(productDto.getCategoryId())), productDto.getName(), productDto.getDescription(), new BigDecimal(productDto.getPrice()), productDto.getColor(), productDto.getSize(), Integer.parseInt(productDto.getQuantity()));
+        productRepository.saveAndFlush(product);
+    }
 
 
     @Override
