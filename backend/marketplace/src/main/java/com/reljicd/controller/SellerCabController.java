@@ -55,7 +55,7 @@ public class SellerCabController {
     public ModelAndView editProductFromCart(@PathVariable("productId") Long productId) {
         ModelAndView modelAndView = new ModelAndView("/editProduct");
         Product product = productService.findById(productId).get();
-        ProductDto productDto = new ProductDto(product.getCategory().getId().toString(), product.getName(), product.getDescription(), product.getPrice().toString(), product.getColor(), product.getSize(), product.getQuantity().toString());
+        ProductDto productDto = new ProductDto(productId,product.getCategory().getId().toString(), product.getName(), product.getDescription(), product.getPrice().toString(), product.getColor(), product.getSize(), product.getQuantity().toString());
         modelAndView.addObject("productDto", productDto);
         return modelAndView;
     }

@@ -10,13 +10,13 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
 import java.math.BigDecimal;
 
-@Entity
+//@Entity
 @Data
 public class ProductDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @Column(name = "id")
     private Long id;
 
 
@@ -57,6 +57,17 @@ public class ProductDto {
     }
 
     public ProductDto( String categoryId, String name, String description, String price, String color, String size, String quantity) {
+        this.categoryId = categoryId;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.color = color;
+        this.size = size;
+        this.quantity = quantity;
+    }
+
+    public ProductDto(Long id, String categoryId, String name, String description, String price, String color, String size, String quantity) {
+        this.id=id;
         this.categoryId = categoryId;
         this.name = name;
         this.description = description;

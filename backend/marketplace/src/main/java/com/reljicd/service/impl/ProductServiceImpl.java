@@ -67,8 +67,7 @@ public class ProductServiceImpl implements ProductService {
     public void updateProduct(ProductDto productDto) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String uname = auth.getName(); //get logged in username
-        Product product = new Product(sellerRepository.findByUsername(uname), categoryRepository.findById(Long.parseLong(productDto.getCategoryId())), productDto.getName(), productDto.getDescription(), new BigDecimal(productDto.getPrice()), productDto.getColor(), productDto.getSize(), Integer.parseInt(productDto.getQuantity()));
-        productRepository.saveAndFlush(product);
+        productRepository.saveAndFlush(productDto.getId(), sellerRepository.findByUsername(uname).getId(),productDto.getName(),  categoryRepository.findById(Long.parseLong(productDto.getCategoryId())).getId(),new BigDecimal(productDto.getPrice()), productDto.getDescription(), productDto.getColor(), productDto.getSize(),  Integer.parseInt(productDto.getQuantity()));
     }
 
 

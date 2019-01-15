@@ -27,6 +27,13 @@
                   th:object="${productDto}" method="post" role="form">
 
                 <div class="form-group">
+                    <label th:if="${#fields.hasErrors('id')}" th:errors="*{id}"
+                           class="alert alert-danger"></label>
+                    <input type="hidden" th:field="*{id}"
+                           class="form-control input-lg"/>
+                </div>
+
+                <div class="form-group">
                     <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
                            class="alert alert-danger"></label>
                     <input type="text" th:field="*{name}"

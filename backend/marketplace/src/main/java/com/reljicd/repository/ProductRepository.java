@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -14,7 +15,12 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     Optional<Product> findById(Long id);
     Product save(Product product);
     void delete(Product product);
-    Product saveAndFlush(Product product);
+
+
+    @Modifying
+    @Transactional
+    @Query(nativeQuery = true, value = "update Product set seller_id = :sellerId, product_name = :productName, product_category = :productCategory, price = :price, description = :description, product_color = :productColor, product_size = :productSize, product_count = :productCount  where id = :id")
+    void saveAndFlush(@Param("id") Long id, @Param("sellerId") Long sellerId, @Param("productName") String productName, @Param("productCategory") Long productCategory, @Param("price") BigDecimal price, @Param("description") String description, @Param("productColor") String productColor, @Param("productSize") String productSize, @Param("productCount") Integer productCount);
 //    void update(Product product);
 
     @Modifying
