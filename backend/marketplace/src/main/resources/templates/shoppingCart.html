@@ -49,6 +49,8 @@
 
         <div class="alert alert-info" th:if="${successMessage}" th:utext="${successMessage}"></div>
 
+        <div class="alert alert-info" th:if="${businessError}" th:utext="${businessError}"></div>
+
         <form autocomplete="off" action="#" th:action="@{/shoppingCart/checkout}"
               th:object="${orderDTO}" method="post" role="form">
 

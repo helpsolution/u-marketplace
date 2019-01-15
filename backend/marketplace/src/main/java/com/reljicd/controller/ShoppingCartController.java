@@ -90,13 +90,17 @@ public class ShoppingCartController {
         } else {
             String name = SecurityContextHolder.getContext().getAuthentication().getName();
 
-            shoppingCartService.checkout(name, orderDTO.getAddress(), orderDTO.getPayingType(), orderDTO.getDateFrom(), orderDTO.getDateTo());
-
-            modelAndView.addObject("successMessage", "Заявка оформлена успешно");
+            try {
+                shoppingCartService.checkout(name, orderDTO.getAddress(), orderDTO.getPayingType(), orderDTO.getDateFrom(), orderDTO.getDateTo());
+                modelAndView.addObject("successMessage", "Заявка оформлена успешно");
+            } catch (Exception e) {
+                modelAndView.addObject("businessError", e.toString());
+            }
             modelAndView.addObject("orderDTO", new OrderDTO());
             modelAndView.addObject("products", shoppingCartService.getProductsInCart());
             modelAndView.addObject("total", shoppingCartService.getTotal().toString());
             modelAndView.setViewName("/shoppingCart");
+
         }
         return modelAndView;
 
