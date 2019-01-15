@@ -20,7 +20,9 @@ public interface ProductService {
 
     Collection<Product> findAllProductForSeller(String username);
 
-//    void updateProduct(Product product);
+
+
+    void updateProduct(ProductDto productDto);
 
 
 }

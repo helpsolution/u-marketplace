@@ -14,6 +14,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     Optional<Product> findById(Long id);
     Product save(Product product);
     void delete(Product product);
+    Product saveAndFlush(Product product);
 //    void update(Product product);
 
     @Modifying
@@ -27,5 +28,10 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query(nativeQuery = true, value = "select p.* from Product p join seller s on p.seller_id=s.user_of_system_id " +
             "join user_of_system uos on uos.id=s.user_of_system_id where uos.username = :login order by p.id asc")
     Collection<Product> findAllForSeller(@Param("login") String login);
+
+//    @Modifying
+//    @Transactional
+//    @Query(nativeQuery = true, value = "update Product set seller_id where id = :id")
+//    void updateProduct(@Param("id") Long id, );
 
 }

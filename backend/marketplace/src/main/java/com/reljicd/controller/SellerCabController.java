@@ -2,6 +2,8 @@ package com.reljicd.controller;
 
 
 import com.reljicd.dto.ProductDto;
+import com.reljicd.model.Category;
+import com.reljicd.model.Product;
 import com.reljicd.service.CategoryService;
 import com.reljicd.service.ProductService;
 import com.reljicd.service.SellerService;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.List;
+
 
 @Controller
 public class SellerCabController {
@@ -46,4 +50,27 @@ public class SellerCabController {
         return sellerCab();
     }
 
+
+    @RequestMapping(value = "/sellerCab/editProduct/{productId}", method = RequestMethod.GET)
+    public ModelAndView editProductFromCart(@PathVariable("productId") Long productId) {
+        ModelAndView modelAndView = new ModelAndView("/editProduct");
+        Product product = productService.findById(productId).get();
+        ProductDto productDto = new ProductDto(product.getCategory().getId().toString(), product.getName(), product.getDescription(), product.getPrice().toString(), product.getColor(), product.getSize(), product.getQuantity().toString());
+        modelAndView.addObject("productDto", productDto);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/editProduct", method = RequestMethod.POST)
+    public ModelAndView editProductFromCart(@Valid ProductDto productDto) {
+        ModelAndView modelAndView = new ModelAndView("/editProduct");
+        productService.updateProduct(productDto);
+        return modelAndView;
+    }
+
+
+
+    @ModelAttribute("allCategories")
+    public List<Category> categories() {
+        return categoryService.findAllCategory();
+    }
 }
