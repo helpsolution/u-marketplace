@@ -37,12 +37,12 @@ public class CustomerRegistrationController {
         if (userService.findByEmail(customerDTO.getEmail()).isPresent()) {
             bindingResult
              .rejectValue("email", "error.customerDTO",
-                          "There is already a user registered with the email provided");
+                          "Пользователь с  таким e-mail уже существует");
         }
         if (userService.findByUsername(customerDTO.getUsername()).isPresent()) {
             bindingResult
              .rejectValue("username", "error.customerDTO",
-                          "There is already a user registered with the username provided");
+                          "Пользователь с таким именем уже зарегистрирован");
         }
 
         ModelAndView modelAndView = new ModelAndView();
@@ -54,7 +54,7 @@ public class CustomerRegistrationController {
             // Set user role to USER and set it as active
             userService.saveCustomer(customerDTO);
 
-            modelAndView.addObject("successMessage", "User has been registered successfully");
+            modelAndView.addObject("successMessage", "Пользователь успешно зарегистрирован");
             modelAndView.addObject("customerDTO", new CustomerDTO());
             modelAndView.setViewName("/registration-customer");
         }

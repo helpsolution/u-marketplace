@@ -37,12 +37,12 @@ public class AnalystRegistrationController {
         if (userService.findByEmail(analystDTO.getEmail()).isPresent()) {
             bindingResult
              .rejectValue("email", "error.analystDTO",
-                          "There is already a user registered with the email provided");
+                          "Пользователь с  таким e-mail уже существует");
         }
         if (userService.findByUsername(analystDTO.getUsername()).isPresent()) {
             bindingResult
              .rejectValue("username", "error.analystDTO",
-                          "There is already a user registered with the username provided");
+                          "Пользователь с таким именем уже зарегистрирован");
         }
 
         ModelAndView modelAndView = new ModelAndView();
@@ -54,7 +54,7 @@ public class AnalystRegistrationController {
             // Set user role to USER and set it as active
             userService.saveAnalyst(analystDTO);
 
-            modelAndView.addObject("successMessage", "User has been registered successfully");
+            modelAndView.addObject("successMessage", "Пользователь успешно зарегистрирован");
             modelAndView.addObject("analystDTO", new AnalystDTO());
             modelAndView.setViewName("/registration-analyst");
         }
