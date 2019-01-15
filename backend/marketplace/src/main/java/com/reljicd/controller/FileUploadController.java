@@ -26,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.reljicd.dto.AnalyticReportDTO;
 import com.reljicd.model.Analyst;
 import com.reljicd.model.AnalyticReport;
 import com.reljicd.repository.AnalystRepository;
@@ -48,9 +49,11 @@ public class FileUploadController {
     public ModelAndView listUploadedFiles() throws IOException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName(); //get logged in username
-        List<Long> reportIds = new ArrayList<>();
+        List<AnalyticReportDTO> reportIds = new ArrayList<>();
         for (AnalyticReport analyticReport: analyticReportRepository.findAllForAnalyst(name)){
-            reportIds.add(analyticReport.getId());
+            reportIds.add(new AnalyticReportDTO(analyticReport.getId(),
+                                                analyticReport.getReportName())
+            );
         }
         ModelAndView modelAndView = new ModelAndView("/analytic-reports");
         modelAndView.addObject("files", reportIds );
