@@ -1,11 +1,13 @@
 package com.reljicd.controller;
 
+import com.reljicd.exception.AccessDeniedException;
 import com.reljicd.model.Product;
 import com.reljicd.model.Role;
 import com.reljicd.model.User;
 import com.reljicd.service.ProductService;
 import com.reljicd.service.UserService;
 import com.reljicd.util.Pager;
+import netscape.security.ForbiddenTargetException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -42,8 +44,8 @@ public class HomeController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName(); //get logged in username
         if(!page.isPresent() && name != null) {
-            Optional<User> user = userService.findByUsername(name);
-            Collection<Role> roles = user.get().getRoles();
+            User user = userService.findByUsername(name).orElseThrow(AccessDeniedException::new);
+            Collection<Role> roles = user.getRoles();
             Role mainRole = roles.iterator().next();
             if (mainRole.getRole().equals("ROLE_ANALYST")) {
                 return "redirect:/analytic-reports";
