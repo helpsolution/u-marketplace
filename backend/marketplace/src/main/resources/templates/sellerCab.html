@@ -32,6 +32,11 @@
                 <button type="button" class="btn btn-primary" th:text="Удалить">Удалить</button>
             </a>
         </div>
+        <div class="row panel-body">
+            <a th:href="@{'/sellerCab/editProduct/{id}'(id=${product.id})}" class="col-md-1">
+                <button type="button" class="btn btn-primary" th:text="Редактировать">Редактировать</button>
+            </a>
+        </div>
     </div>
 
 

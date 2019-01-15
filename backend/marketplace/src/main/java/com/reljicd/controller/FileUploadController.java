@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.reljicd.dto.AnalyticReportDTO;
 import com.reljicd.model.Analyst;
 import com.reljicd.model.AnalyticReport;
 import com.reljicd.repository.AnalystRepository;
@@ -45,32 +47,26 @@ public class FileUploadController {
 
     @GetMapping("/analytic-reports")
     public ModelAndView listUploadedFiles() throws IOException {
-        ModelAndView modelAndView = new ModelAndView("/analytic-reports");
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName(); //get logged in username
+        List<AnalyticReportDTO> reportIds = new ArrayList<>();
+        for (AnalyticReport analyticReport: analyticReportRepository.findAllForAnalyst(name)){
+            reportIds.add(new AnalyticReportDTO(analyticReport.getId(),
+                                                analyticReport.getReportName())
+            );
+        }
+        ModelAndView modelAndView = new ModelAndView("/analytic-reports");
+        modelAndView.addObject("files", reportIds );
         return modelAndView;
     }
 
-    @GetMapping("/list-files")
-    public String listUploadedFiles(Model model) throws IOException {
-
-//        model.addAttribute("files", storageService.loadAll().map(
-//                path -> MvcUriComponentsBuilder.fromMethodName(FileUploadController.class,
-//                        "serveFile", path.getFileName().toString()).build().toString())
-//                .collect(Collectors.toList()));
-
-        model.addAttribute("files", new ArrayList<>());
-
-        return "analytic-reports";
-    }
-
-    @GetMapping("/files/{filename:.+}")
+    @GetMapping("/files/{fileId}")
     @ResponseBody
-    public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
-
-        Resource file = null;//storageService.loadAsResource(filename);
+    public ResponseEntity<byte[]> serveFile(@PathVariable Long fileId) {
+        AnalyticReport analyticReport = analyticReportRepository.findOne(fileId);
+        byte[] bytes = analyticReport.getReport();
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
-                "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+                "attachment; filename=\"" + analyticReport.getReportName() + "\"").body(bytes);
     }
 
     @PostMapping("/")
