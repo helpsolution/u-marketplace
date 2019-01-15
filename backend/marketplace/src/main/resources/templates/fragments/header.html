@@ -14,6 +14,11 @@
 
         <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
                 th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+        <script>
+            function goBack() {
+                window.history.back();
+            }
+        </script>
 
         <link rel="stylesheet" th:href="@{/css/main.css}"
               href="../../css/main.css"/>
@@ -29,6 +34,7 @@
         <div class="container">
             <div class="navbar-header">
                 <a class="navbar-brand" th:href="@{/home}">U-Marketplace</a>
+                <a class="navbar-brand" onclick="goBack()">Вернуться</a>
             </div>
             <div id="navbar" class="collapse navbar-collapse navbar-right">
                 <!-- show shoppingCart only if user is not yet authenticated -->
