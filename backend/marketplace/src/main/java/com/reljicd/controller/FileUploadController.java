@@ -69,9 +69,13 @@ public class FileUploadController {
                 "attachment; filename=\"" + analyticReport.getReportName() + "\"").body(bytes);
     }
 
-    @PostMapping("/")
-    public String handleFileUpload(@RequestParam("file") MultipartFile file,
+    @PostMapping("/upload-file")
+    public Object handleFileUpload(@RequestParam("file") MultipartFile file,
             RedirectAttributes redirectAttributes) throws Exception {
+
+        if (file == null || file.getBytes().length == 0) {
+            return new ModelAndView("/error-no-file");
+        }
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName(); //get logged in username
