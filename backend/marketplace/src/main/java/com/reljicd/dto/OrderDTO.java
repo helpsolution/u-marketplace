@@ -1,8 +1,7 @@
 package com.reljicd.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.reljicd.model.OrderOfSystem;
 import lombok.Data;
-import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -10,8 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Data
@@ -25,15 +23,13 @@ public class OrderDTO {
     @NotEmpty(message = "*Пожалуйста, заполните поле")
     private String address;
 
+    private OrderOfSystem.PayingType payingType;
 
-    @NotEmpty(message = "*Пожалуйста, заполните поле")
-    private String payingType;
-
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
-    @NotEmpty(message = "*Пожалуйста, заполните поле")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "*Пожалуйста, заполните поле")
     private Date dateFrom;
 
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
-    @NotEmpty(message = "*Пожалуйста, заполните поле")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "*Пожалуйста, заполните поле")
     private Date dateTo;
 }

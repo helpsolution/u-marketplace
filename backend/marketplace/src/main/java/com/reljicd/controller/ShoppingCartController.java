@@ -1,19 +1,24 @@
 package com.reljicd.controller;
 
 import com.reljicd.dto.OrderDTO;
+import com.reljicd.model.Category;
+import com.reljicd.service.CategoryService;
 import com.reljicd.service.ProductService;
 import com.reljicd.service.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.Validator;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 public class ShoppingCartController {
@@ -21,6 +26,9 @@ public class ShoppingCartController {
     private final ShoppingCartService shoppingCartService;
 
     private final ProductService productService;
+
+    @Autowired
+    private CategoryService categoryService;
 
     @Autowired
     public ShoppingCartController(ShoppingCartService shoppingCartService, ProductService productService) {
@@ -61,24 +69,22 @@ public class ShoppingCartController {
 //    }
 
 
-//    @GetMapping("/shoppingCart/checkout")
-//    public ModelAndView checkout() {
-//        ModelAndView modelAndView = new ModelAndView();
-//        OrderDTO orderDTO = new OrderDTO();
-//        modelAndView.addObject("orderDTO", orderDTO);
-//        modelAndView.addObject("basketId", "12");
-//
-//        modelAndView.setViewName("/delivery");
-//        return modelAndView;
-//    }
+    @GetMapping("/shoppingCart/checkout")
+    public ModelAndView checkout() {
+        ModelAndView modelAndView = new ModelAndView();
+        OrderDTO orderDTO = new OrderDTO();
+        modelAndView.addObject("orderDTO", orderDTO);
+        modelAndView.setViewName("/shoppingCart/checkout");
+        return modelAndView;
+    }
 
-    @RequestMapping(value = "/shoppingCart/checkout", method = RequestMethod.POST)
-    public ModelAndView checkout(OrderDTO orderDTO, BindingResult bindingResult) {
+    @PostMapping(value = "/shoppingCart/checkout")
+    public ModelAndView checkout(@Valid OrderDTO orderDTO, BindingResult bindingResult) {
 
         ModelAndView modelAndView = shoppingCart();
 
         if (bindingResult.hasErrors()) {
-            modelAndView.setViewName("/shoppingCart");
+            checkout();
         } else {
             String name = SecurityContextHolder.getContext().getAuthentication().getName();
 
@@ -91,13 +97,4 @@ public class ShoppingCartController {
         return modelAndView;
 
     }
-
-//    @GetMapping("/shoppingCart/payment")
-//    public ModelAndView paymant() {
-//        ModelAndView modelAndView = new ModelAndView();
-//        PayingDTO payingDTO = new PayingDTO();
-//        modelAndView.addObject("payingDTO", payingDTO);
-//        modelAndView.setViewName("/payment");
-//        return modelAndView;
-//    }
 }

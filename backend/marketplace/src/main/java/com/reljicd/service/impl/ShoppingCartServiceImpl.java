@@ -51,8 +51,6 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Autowired
     private ProductInBasketRepository productInBasketRepository;
 
-    private HashMap<Product, Integer> products = new HashMap();
-
     /**
      * If product is in the map just increment quantity by 1.
      * If product is not in the map with, add it with quantity 1
@@ -135,7 +133,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
      * Checkout will rollback if there is not enough of some product in stock
      */
     @Override
-    public void checkout(String customerName, String address, String paymentType, Date dateFrom, Date dateTo) {
+    public void checkout(String customerName, String address, OrderOfSystem.PayingType paymentType, Date dateFrom, Date dateTo) {
 
         //size must be equal 1
         Basket basket = basketRepository.findOneActiveBasket(customerName);
@@ -167,8 +165,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         orderOfSystem.setPrice(new BigDecimal(orderPrice));
         orderOfSystem.setBasket(basket);
         orderOfSystem.setDeliveryAddress(address);
-        OrderOfSystem.PayingType payingType = getPayingType(paymentType);
-        orderOfSystem.setPayingType(getPayingType(paymentType));
+        OrderOfSystem.PayingType payingType = paymentType;
+        orderOfSystem.setPayingType(paymentType);
         orderOfSystem.setDeliveryTimeFrom(dateFrom);
         orderOfSystem.setDeliveryTimeTo(dateTo);
 

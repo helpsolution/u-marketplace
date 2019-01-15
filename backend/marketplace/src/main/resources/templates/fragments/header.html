@@ -46,6 +46,9 @@
                 <ul class="nav navbar-nav" sec:authorize="!isAuthenticated()">
                     <li class="active"><a th:href="@{/login}">Войти</a></li>
                 </ul>
+                <ul class="nav navbar-nav" sec:authorize="hasRole('ROLE_CUSTOMER')">
+                    <li class="active"><a th:href="@{/shoppingCart}">Корзина</a></li>
+                </ul>
                 <!-- show sign out only if user is authenticated -->
                 <ul class="nav navbar-nav" sec:authorize="isAuthenticated()">
                     <li class="active"><a th:href="@{/logout}">Выйти</a></li>

@@ -68,7 +68,7 @@
             </div>
 
             <div class="form-group">
-                <label th:if="${#fields.hasErrors('dateFrom')}" th:errors="*{dateFrom}"
+                <label th:if="${#fields.hasErrors('dateTo')}" th:errors="*{dateTo}"
                        class="alert alert-danger"></label>
                 <input type="date" th:field="*{dateTo}" placeholder="Доставка по (день-месяц-год)"
                        class="form-control input-lg"/>
@@ -77,16 +77,13 @@
             <div class="form-group">
                 <label th:if="${#fields.hasErrors('payingType')}" th:errors="*{payingType}"
                        class="alert alert-danger"></label>
-                <input type="text" th:field="*{payingType}" placeholder="Тип оплаты (CASH, BANK_CARD or PAY_PAL)"
-                       class="form-control input-lg"/>
+                <select th:field="*{payingType}">
+                    <option th:each="payType : ${T(com.reljicd.model.OrderOfSystem.PayingType).values()}"
+                            th:value="${payType}"
+                            th:text="${payType}">
+                    </option>
+                </select>
             </div>
-
-            <!--<div class="form-group">-->
-            <!--<label th:if="${#fields.hasErrors('date')}" th:errors="*{date}"-->
-            <!--class="alert alert-danger"></label>-->
-            <!--<input type="date" th:field="*{date}" placeholder="Date of delivery"-->
-            <!--class="form-control input-lg"/>-->
-            <!--</div>-->
 
             <div class="row">
                 <div class="col-sm-3" style="float: none; margin: 0 auto;">
