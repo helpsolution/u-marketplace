@@ -37,12 +37,12 @@ public class RegistrationController {
         if (userService.findByEmail(user.getEmail()).isPresent()) {
             bindingResult
                     .rejectValue("email", "error.user",
-                            "There is already a user registered with the email provided");
+                            "Пользователь с  таким e-mail уже существует");
         }
         if (userService.findByUsername(user.getUsername()).isPresent()) {
             bindingResult
                     .rejectValue("username", "error.user",
-                            "There is already a user registered with the username provided");
+                            "Пользователь с таким именем уже зарегистрирован");
         }
 
         ModelAndView modelAndView = new ModelAndView();
@@ -54,7 +54,7 @@ public class RegistrationController {
             // Set user role to USER and set it as active
             userService.saveUser(user);
 
-            modelAndView.addObject("successMessage", "User has been registered successfully");
+            modelAndView.addObject("successMessage", "Пользователь успешно зарегистрирован");
             modelAndView.addObject("user", new User());
             modelAndView.setViewName("/registration");
         }

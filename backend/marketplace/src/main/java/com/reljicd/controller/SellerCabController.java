@@ -70,7 +70,7 @@ public class SellerCabController {
         } catch (Exception e){
             bindingResult
                     .rejectValue("price", "error.productDto",
-                            "no valid type");
+                            "Некорректный тип");
         }
 
         try {
@@ -78,7 +78,7 @@ public class SellerCabController {
         } catch (Exception e){
             bindingResult
                     .rejectValue("quantity", "error.productDto",
-                            "no valid type");
+                            "Некорректный тип");
         }
 
         ModelAndView modelAndView = new ModelAndView();

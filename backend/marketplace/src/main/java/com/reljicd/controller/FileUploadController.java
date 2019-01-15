@@ -86,7 +86,7 @@ public class FileUploadController {
         AnalyticReport report = new AnalyticReport(null, analyst, reportName, file.getBytes());
         analyticReportRepository.save(report);
         redirectAttributes.addFlashAttribute("message",
-                "You successfully uploaded " + file.getOriginalFilename() + "!");
+                "Вы успешно загрузили файл " + file.getOriginalFilename() + "!");
 
 
         return "redirect:/analytic-reports";
