@@ -11,10 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -61,9 +63,32 @@ public class SellerCabController {
     }
 
     @RequestMapping(value = "/editProduct", method = RequestMethod.POST)
-    public ModelAndView editProductFromCart(@Valid ProductDto productDto) {
-        ModelAndView modelAndView = new ModelAndView("/editProduct");
-        productService.updateProduct(productDto);
+    public ModelAndView editProductFromCart(@Valid ProductDto productDto, BindingResult bindingResult) {
+
+        try {
+            new BigDecimal(productDto.getPrice());
+        } catch (Exception e){
+            bindingResult
+                    .rejectValue("price", "error.productDto",
+                            "no valid type");
+        }
+
+        try {
+            Integer.parseInt(productDto.getQuantity());
+        } catch (Exception e){
+            bindingResult
+                    .rejectValue("quantity", "error.productDto",
+                            "no valid type");
+        }
+
+        ModelAndView modelAndView = new ModelAndView();
+
+        if (bindingResult.hasErrors()) {
+            modelAndView.setViewName("/editProduct");
+        } else {
+            modelAndView = new ModelAndView("/editProduct");
+            productService.updateProduct(productDto);
+        }
         return modelAndView;
     }
 
