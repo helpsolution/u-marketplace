@@ -81,10 +81,12 @@ public class ShoppingCartController {
     @PostMapping(value = "/shoppingCart/checkout")
     public ModelAndView checkout(@Valid OrderDTO orderDTO, BindingResult bindingResult) {
 
-        ModelAndView modelAndView = shoppingCart();
+        ModelAndView modelAndView = new ModelAndView();
 
         if (bindingResult.hasErrors()) {
-            checkout();
+            modelAndView.addObject("products", shoppingCartService.getProductsInCart());
+            modelAndView.addObject("total", shoppingCartService.getTotal().toString());
+            modelAndView.setViewName("/shoppingCart");
         } else {
             String name = SecurityContextHolder.getContext().getAuthentication().getName();
 
@@ -92,6 +94,8 @@ public class ShoppingCartController {
 
             modelAndView.addObject("successMessage", "Заявка оформлена успешно");
             modelAndView.addObject("orderDTO", new OrderDTO());
+            modelAndView.addObject("products", shoppingCartService.getProductsInCart());
+            modelAndView.addObject("total", shoppingCartService.getTotal().toString());
             modelAndView.setViewName("/shoppingCart");
         }
         return modelAndView;
