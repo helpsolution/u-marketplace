@@ -4,11 +4,15 @@ import com.reljicd.dto.AnalystDTO;
 import com.reljicd.dto.CustomerDTO;
 import com.reljicd.dto.SellerDTO;
 import com.reljicd.model.Analyst;
+import com.reljicd.model.Company;
 import com.reljicd.model.Customer;
+import com.reljicd.model.Seller;
 import com.reljicd.model.User;
 import com.reljicd.repository.AnalystRepository;
+import com.reljicd.repository.CompanyRepository;
 import com.reljicd.repository.CustomerRepository;
 import com.reljicd.repository.RoleRepository;
+import com.reljicd.repository.SellerRepository;
 import com.reljicd.repository.UserRepository;
 import com.reljicd.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +30,8 @@ public class UserServiceImp implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final AnalystRepository analystRepository;
     private final CustomerRepository customerRepository;
+    private final CompanyRepository companyRepository;
+    private final SellerRepository sellerRepository;
 
     private static final String ROLE_SELLER = "ROLE_SELLER";
 
@@ -34,12 +40,16 @@ public class UserServiceImp implements UserService {
                           RoleRepository roleRepository,
                           PasswordEncoder passwordEncoder,
                           AnalystRepository analystRepository,
-                          CustomerRepository customerRepository) {
+                          CustomerRepository customerRepository,
+                          SellerRepository sellerRepository,
+                          CompanyRepository companyRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
         this.analystRepository = analystRepository;
         this.customerRepository = customerRepository;
+        this.companyRepository = companyRepository;
+        this.sellerRepository = sellerRepository;
     }
 
     @Override
@@ -72,7 +82,11 @@ public class UserServiceImp implements UserService {
          sellerDTO.getPhone(),
          Collections.singletonList(roleRepository.findByRole(ROLE_SELLER))
         );
-        return userRepository.save(user);
+        User savedUser = userRepository.save(user);
+        Company company = companyRepository.findOne( sellerDTO.getCompanyId());
+        Seller seller = new Seller(savedUser.getId(), company);
+        sellerRepository.save(seller);
+        return savedUser;
     }
 
     @Override

@@ -38,6 +38,8 @@ public class SellerDTO {
     @NotEmpty(message = "*Пожалуйста, заполните поле")
     private String phone;
 
+    private Long companyId;
+
     @Length(max = 200, message = "Поле не должно быть длиннее 200 символов")
     private String specialization;
 }
